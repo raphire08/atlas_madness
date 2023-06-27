@@ -1,0 +1,70 @@
+import 'package:flex_color_scheme/flex_color_scheme.dart';
+import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:go_router/go_router.dart';
+import 'package:inventory_flutter/manager/auth_manager.dart';
+import 'package:inventory_flutter/screens/login_screen.dart';
+import 'package:realm/realm.dart';
+
+import 'models/auth_model.dart';
+
+GetIt getIt = GetIt.instance;
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  registerManager();
+  runApp(const InventoryApp());
+}
+
+void registerManager() {
+  getIt.registerSingleton(App(AppConfiguration('application-0-knrzx')));
+
+  getIt.registerSingleton<AuthManager>(AuthManager());
+}
+
+final _router = GoRouter(
+  routes: <RouteBase>[
+    GoRoute(
+      path: '/',
+      builder: (context, state) {
+        return const LoginScreen(AuthMode.login);
+      },
+      routes: <RouteBase>[
+        GoRoute(
+          path: 'login',
+          builder: (context, state) {
+            return const LoginScreen(AuthMode.login);
+          },
+        ),
+        GoRoute(
+          path: 'register',
+          builder: (context, state) {
+            return const LoginScreen(AuthMode.register);
+          },
+        ),
+      ],
+    ),
+  ],
+);
+
+class InventoryApp extends StatelessWidget {
+  const InventoryApp({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp.router(
+      title: 'Inventory',
+      theme: FlexColorScheme.light(
+        scheme: FlexScheme.wasabi,
+        useMaterial3: true,
+      ).toTheme,
+      darkTheme: FlexColorScheme.dark(
+        scheme: FlexScheme.wasabi,
+        useMaterial3: true,
+      ).toTheme,
+      themeMode: ThemeMode.system,
+      debugShowCheckedModeBanner: false,
+      routerConfig: _router,
+    );
+  }
+}

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="FacetManager">
+    <facet type="android" name="Android">
+      <configuration />
+    </facet>
+  </component>
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/mongo_learn/mongo_learn/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/mongo_learn/mongo_learn/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/mongo_learn/mongo_learn/build" />
+      <excludeFolder url="file://$MODULE_DIR$/inventory_flutter/build" />
+      <excludeFolder url="file://$MODULE_DIR$/inventory_flutter/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/inventory_flutter/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/inventory_flutter/windows/flutter/ephemeral/.plugin_symlinks/firebase_core/example/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/inventory_flutter/windows/flutter/ephemeral/.plugin_symlinks/firebase_core/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/inventory_flutter/windows/flutter/ephemeral/.plugin_symlinks/firebase_core/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/inventory_flutter/windows/flutter/ephemeral/.plugin_symlinks/firebase_core/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/inventory_flutter/windows/flutter/ephemeral/.plugin_symlinks/firebase_core/build" />
+      <excludeFolder url="file://$MODULE_DIR$/inventory_flutter/windows/flutter/ephemeral/.plugin_symlinks/firebase_core/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/inventory_dart/build" />
+      <excludeFolder url="file://$MODULE_DIR$/inventory_dart/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/inventory_dart/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/inventory_flutter/windows/flutter/ephemeral/.plugin_symlinks/realm/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/inventory_flutter/windows/flutter/ephemeral/.plugin_symlinks/realm/build" />
+      <excludeFolder url="file://$MODULE_DIR$/inventory_flutter/windows/flutter/ephemeral/.plugin_symlinks/realm/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/inventory_flutter/linux/flutter/ephemeral/.plugin_symlinks/realm/tests/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/inventory_flutter/linux/flutter/ephemeral/.plugin_symlinks/realm/tests/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/inventory_flutter/linux/flutter/ephemeral/.plugin_symlinks/realm/tests/build" />
+      <excludeFolder url="file://$MODULE_DIR$/inventory_flutter/windows/flutter/ephemeral/.plugin_symlinks/realm/tests/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/inventory_flutter/windows/flutter/ephemeral/.plugin_symlinks/realm/tests/build" />
+      <excludeFolder url="file://$MODULE_DIR$/inventory_flutter/windows/flutter/ephemeral/.plugin_symlinks/realm/tests/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/inventory_flutter/linux/flutter/ephemeral/.plugin_symlinks/realm/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/inventory_flutter/linux/flutter/ephemeral/.plugin_symlinks/realm/build" />
+      <excludeFolder url="file://$MODULE_DIR$/inventory_flutter/linux/flutter/ephemeral/.plugin_symlinks/realm/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/inventory_flutter/linux/flutter/ephemeral/.plugin_symlinks/realm/example/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/inventory_flutter/linux/flutter/ephemeral/.plugin_symlinks/realm/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/inventory_flutter/linux/flutter/ephemeral/.plugin_symlinks/realm/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/inventory_flutter/windows/flutter/ephemeral/.plugin_symlinks/realm/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/inventory_flutter/windows/flutter/ephemeral/.plugin_symlinks/realm/example/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/inventory_flutter/windows/flutter/ephemeral/.plugin_symlinks/realm/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/inventory_flutter/macos/Flutter/ephemeral/.symlinks/plugins/realm/example/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/inventory_flutter/macos/Flutter/ephemeral/.symlinks/plugins/realm/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/inventory_flutter/macos/Flutter/ephemeral/.symlinks/plugins/realm/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/inventory_flutter/macos/Flutter/ephemeral/.symlinks/plugins/realm/build" />
+      <excludeFolder url="file://$MODULE_DIR$/inventory_flutter/macos/Flutter/ephemeral/.symlinks/plugins/realm/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/inventory_flutter/macos/Flutter/ephemeral/.symlinks/plugins/realm/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/inventory_flutter/macos/Flutter/ephemeral/.symlinks/plugins/realm/tests/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/inventory_flutter/macos/Flutter/ephemeral/.symlinks/plugins/realm/tests/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/inventory_flutter/macos/Flutter/ephemeral/.symlinks/plugins/realm/tests/build" />
+    </content>
+    <orderEntry type="jdk" jdkName="Android API 30 Platform" jdkType="Android SDK" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Dart SDK" level="project" />
+    <orderEntry type="library" name="Dart Packages" level="project" />
+  </component>
+</module>
