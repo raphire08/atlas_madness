@@ -6,7 +6,7 @@ part 'seller.g.dart';
 @RealmModel()
 class $Seller {
   @PrimaryKey()
-  @MapTo('id')
+  @MapTo('_id')
   late ObjectId id;
   late String name;
   late String contact;

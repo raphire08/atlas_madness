@@ -19,6 +19,10 @@ class AuthModel {
   AuthModel.empty()
       : email = '',
         password = '';
+
+  AuthModel.fromRegisterModel(RegisterModel registerModel)
+      : email = registerModel.staff.email.toLowerCase(),
+        password = registerModel.password;
 }
 
 class RegisterModel {

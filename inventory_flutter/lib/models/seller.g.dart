@@ -13,23 +13,20 @@ class Seller extends $Seller with RealmEntity, RealmObjectBase, RealmObject {
     String contact,
     String email, {
     Address? address,
-    Iterable<Store> stores = const [],
   }) {
-    RealmObjectBase.set(this, 'id', id);
+    RealmObjectBase.set(this, '_id', id);
     RealmObjectBase.set(this, 'name', name);
     RealmObjectBase.set(this, 'contact', contact);
     RealmObjectBase.set(this, 'email', email);
     RealmObjectBase.set(this, 'address', address);
-    RealmObjectBase.set<RealmList<Store>>(
-        this, 'stores', RealmList<Store>(stores));
   }
 
   Seller._();
 
   @override
-  ObjectId get id => RealmObjectBase.get<ObjectId>(this, 'id') as ObjectId;
+  ObjectId get id => RealmObjectBase.get<ObjectId>(this, '_id') as ObjectId;
   @override
-  set id(ObjectId value) => RealmObjectBase.set(this, 'id', value);
+  set id(ObjectId value) => RealmObjectBase.set(this, '_id', value);
 
   @override
   String get name => RealmObjectBase.get<String>(this, 'name') as String;
@@ -54,13 +51,6 @@ class Seller extends $Seller with RealmEntity, RealmObjectBase, RealmObject {
       RealmObjectBase.set(this, 'address', value);
 
   @override
-  RealmList<Store> get stores =>
-      RealmObjectBase.get<Store>(this, 'stores') as RealmList<Store>;
-  @override
-  set stores(covariant RealmList<Store> value) =>
-      throw RealmUnsupportedSetError();
-
-  @override
   Stream<RealmObjectChanges<Seller>> get changes =>
       RealmObjectBase.getChanges<Seller>(this);
 
@@ -72,14 +62,13 @@ class Seller extends $Seller with RealmEntity, RealmObjectBase, RealmObject {
   static SchemaObject _initSchema() {
     RealmObjectBase.registerFactory(Seller._);
     return const SchemaObject(ObjectType.realmObject, Seller, 'Seller', [
-      SchemaProperty('id', RealmPropertyType.objectid, primaryKey: true),
+      SchemaProperty('id', RealmPropertyType.objectid,
+          mapTo: '_id', primaryKey: true),
       SchemaProperty('name', RealmPropertyType.string),
       SchemaProperty('contact', RealmPropertyType.string),
       SchemaProperty('email', RealmPropertyType.string),
       SchemaProperty('address', RealmPropertyType.object,
           optional: true, linkTarget: 'Address'),
-      SchemaProperty('stores', RealmPropertyType.object,
-          linkTarget: 'Store', collectionType: RealmCollectionType.list),
     ]);
   }
 }

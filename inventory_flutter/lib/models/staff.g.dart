@@ -13,10 +13,12 @@ class Staff extends $Staff with RealmEntity, RealmObjectBase, RealmObject {
     String lastName,
     String gender,
     String dob,
-    String primaryContact,
-    String secondaryContact,
-    String email, {
+    String email,
+    ObjectId sellerId, {
+    String? primaryContact,
+    String? secondaryContact,
     Address? address,
+    ObjectId? storeId,
   }) {
     RealmObjectBase.set(this, '_id', id);
     RealmObjectBase.set(this, 'firstName', firstName);
@@ -27,6 +29,8 @@ class Staff extends $Staff with RealmEntity, RealmObjectBase, RealmObject {
     RealmObjectBase.set(this, 'secondaryContact', secondaryContact);
     RealmObjectBase.set(this, 'email', email);
     RealmObjectBase.set(this, 'address', address);
+    RealmObjectBase.set(this, 'sellerId', sellerId);
+    RealmObjectBase.set(this, 'storeId', storeId);
   }
 
   Staff._();
@@ -59,17 +63,17 @@ class Staff extends $Staff with RealmEntity, RealmObjectBase, RealmObject {
   set dob(String value) => RealmObjectBase.set(this, 'dob', value);
 
   @override
-  String get primaryContact =>
-      RealmObjectBase.get<String>(this, 'primaryContact') as String;
+  String? get primaryContact =>
+      RealmObjectBase.get<String>(this, 'primaryContact') as String?;
   @override
-  set primaryContact(String value) =>
+  set primaryContact(String? value) =>
       RealmObjectBase.set(this, 'primaryContact', value);
 
   @override
-  String get secondaryContact =>
-      RealmObjectBase.get<String>(this, 'secondaryContact') as String;
+  String? get secondaryContact =>
+      RealmObjectBase.get<String>(this, 'secondaryContact') as String?;
   @override
-  set secondaryContact(String value) =>
+  set secondaryContact(String? value) =>
       RealmObjectBase.set(this, 'secondaryContact', value);
 
   @override
@@ -85,11 +89,16 @@ class Staff extends $Staff with RealmEntity, RealmObjectBase, RealmObject {
       RealmObjectBase.set(this, 'address', value);
 
   @override
-  RealmResults<Store> get store =>
-      RealmObjectBase.get<Store>(this, 'store') as RealmResults<Store>;
+  ObjectId get sellerId =>
+      RealmObjectBase.get<ObjectId>(this, 'sellerId') as ObjectId;
   @override
-  set store(covariant RealmResults<Store> value) =>
-      throw RealmUnsupportedSetError();
+  set sellerId(ObjectId value) => RealmObjectBase.set(this, 'sellerId', value);
+
+  @override
+  ObjectId? get storeId =>
+      RealmObjectBase.get<ObjectId>(this, 'storeId') as ObjectId?;
+  @override
+  set storeId(ObjectId? value) => RealmObjectBase.set(this, 'storeId', value);
 
   @override
   Stream<RealmObjectChanges<Staff>> get changes =>
@@ -109,15 +118,17 @@ class Staff extends $Staff with RealmEntity, RealmObjectBase, RealmObject {
       SchemaProperty('lastName', RealmPropertyType.string),
       SchemaProperty('gender', RealmPropertyType.string),
       SchemaProperty('dob', RealmPropertyType.string),
-      SchemaProperty('primaryContact', RealmPropertyType.string),
-      SchemaProperty('secondaryContact', RealmPropertyType.string),
+      SchemaProperty('primaryContact', RealmPropertyType.string,
+          optional: true),
+      SchemaProperty('secondaryContact', RealmPropertyType.string,
+          optional: true),
       SchemaProperty('email', RealmPropertyType.string),
       SchemaProperty('address', RealmPropertyType.object,
           optional: true, linkTarget: 'Address'),
-      SchemaProperty('store', RealmPropertyType.linkingObjects,
-          linkOriginProperty: 'staffs',
-          collectionType: RealmCollectionType.list,
-          linkTarget: 'Store'),
+      SchemaProperty('sellerId', RealmPropertyType.objectid,
+          indexType: RealmIndexType.regular),
+      SchemaProperty('storeId', RealmPropertyType.objectid,
+          optional: true, indexType: RealmIndexType.regular),
     ]);
   }
 }

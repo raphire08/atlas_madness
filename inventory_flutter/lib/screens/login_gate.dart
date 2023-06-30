@@ -19,6 +19,13 @@ class LoginGate extends StatelessWidget with GetItMixin {
   Widget build(BuildContext context) {
     final isLoading = watchX((AuthManager x) => x.loginCommand.isExecuting);
     final AuthModel result = watchX((AuthManager x) => x.loginCommand);
+    registerHandler((AuthManager x) => x.loginCommand,
+        (context, newValue, cancel) async {
+      if (newValue.isAuthenticated) {
+        context.go('/home');
+      }
+    });
+    print('authenticated: ${result.isAuthenticated}');
     final authManager = get<AuthManager>();
     return GestureDetector(
       onTap: FocusScope.of(context).unfocus,
@@ -80,12 +87,14 @@ class LoginGate extends StatelessWidget with GetItMixin {
                         width: double.infinity,
                         height: 50,
                         child: ElevatedButton(
-                          onPressed: () => isLoading
-                              ? null
-                              : authManager.loginCommand.execute(
-                                  AuthModel(emailController.text,
-                                      passwordController.text),
-                                ),
+                          onPressed: () {
+                            if (!isLoading) {
+                              authManager.loginCommand.execute(
+                                AuthModel(emailController.text,
+                                    passwordController.text),
+                              );
+                            }
+                          },
                           child: isLoading
                               ? const CircularProgressIndicator.adaptive()
                               : const Text('Login'),

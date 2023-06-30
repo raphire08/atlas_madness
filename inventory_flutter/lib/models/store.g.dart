@@ -11,10 +11,10 @@ class Store extends $Store with RealmEntity, RealmObjectBase, RealmObject {
     ObjectId id,
     String name,
     String contact,
-    String email, {
+    String email,
+    ObjectId sellerId, {
     Address? address,
     StoreProperties? properties,
-    Iterable<Staff> staffs = const [],
   }) {
     RealmObjectBase.set(this, '_id', id);
     RealmObjectBase.set(this, 'name', name);
@@ -22,8 +22,7 @@ class Store extends $Store with RealmEntity, RealmObjectBase, RealmObject {
     RealmObjectBase.set(this, 'contact', contact);
     RealmObjectBase.set(this, 'email', email);
     RealmObjectBase.set(this, 'properties', properties);
-    RealmObjectBase.set<RealmList<Staff>>(
-        this, 'staffs', RealmList<Staff>(staffs));
+    RealmObjectBase.set(this, 'sellerId', sellerId);
   }
 
   Store._();
@@ -64,18 +63,10 @@ class Store extends $Store with RealmEntity, RealmObjectBase, RealmObject {
       RealmObjectBase.set(this, 'properties', value);
 
   @override
-  RealmList<Staff> get staffs =>
-      RealmObjectBase.get<Staff>(this, 'staffs') as RealmList<Staff>;
+  ObjectId get sellerId =>
+      RealmObjectBase.get<ObjectId>(this, 'sellerId') as ObjectId;
   @override
-  set staffs(covariant RealmList<Staff> value) =>
-      throw RealmUnsupportedSetError();
-
-  @override
-  RealmResults<Seller> get seller =>
-      RealmObjectBase.get<Seller>(this, 'seller') as RealmResults<Seller>;
-  @override
-  set seller(covariant RealmResults<Seller> value) =>
-      throw RealmUnsupportedSetError();
+  set sellerId(ObjectId value) => RealmObjectBase.set(this, 'sellerId', value);
 
   @override
   Stream<RealmObjectChanges<Store>> get changes =>
@@ -98,12 +89,8 @@ class Store extends $Store with RealmEntity, RealmObjectBase, RealmObject {
       SchemaProperty('email', RealmPropertyType.string),
       SchemaProperty('properties', RealmPropertyType.object,
           optional: true, linkTarget: 'StoreProperties'),
-      SchemaProperty('staffs', RealmPropertyType.object,
-          linkTarget: 'Staff', collectionType: RealmCollectionType.list),
-      SchemaProperty('seller', RealmPropertyType.linkingObjects,
-          linkOriginProperty: 'stores',
-          collectionType: RealmCollectionType.list,
-          linkTarget: 'Seller'),
+      SchemaProperty('sellerId', RealmPropertyType.objectid,
+          indexType: RealmIndexType.regular),
     ]);
   }
 }

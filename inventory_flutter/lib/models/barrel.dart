@@ -14,4 +14,5 @@ List<SchemaObject> get schemas => [
       Seller.schema,
       Staff.schema,
       Store.schema,
+      StoreProperties.schema
     ];

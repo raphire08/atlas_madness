@@ -19,10 +19,10 @@ class $Store {
 
 @RealmModel(ObjectType.embeddedObject)
 class $StoreProperties {
-  bool isPOS = true;
-  bool isOnline = false;
-  bool hasStorage = true;
-  bool hasStaff = true;
-  bool hasGst = true;
-  String? gst;
+  late bool isPOS = true;
+  late bool isOnline = false;
+  late bool hasStorage = true;
+  late bool hasStaff = true;
+  late bool hasGst = true;
+  late String? gst;
 }
