@@ -9,6 +9,7 @@ class UserManager {
 
   late Command<String, Staff?> userCommand;
   late Command<void, bool> refreshCommand;
+  Staff? staff;
 
   UserManager() {
     userCommand =
@@ -19,7 +20,8 @@ class UserManager {
   }
 
   Staff? getStaff(String id) {
-    return repo.getStaff(id);
+    staff = repo.getStaff(id);
+    return staff;
   }
 
   Future<bool> refreshRealm() async {

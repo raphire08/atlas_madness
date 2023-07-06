@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:get_it_mixin/get_it_mixin.dart';
 import 'package:go_router/go_router.dart';
 import 'package:inventory_flutter/manager/auth_manager.dart';
@@ -8,125 +7,87 @@ import 'package:inventory_flutter/models/auth_model.dart';
 import 'package:inventory_flutter/models/barrel.dart';
 import 'package:realm/realm.dart';
 
-final emailValidator = FormBuilderValidators.compose(
-  [
-    FormBuilderValidators.required(),
-    FormBuilderValidators.email(),
-  ],
-);
+import 'form_helper.dart';
 
-final requiredValidator = FormBuilderValidators.compose(
-  [
-    FormBuilderValidators.required(),
-  ],
-);
-
-final dateValidator = FormBuilderValidators.compose(
-  [
-    FormBuilderValidators.dateString(),
-  ],
-);
-
-final numericValidator = FormBuilderValidators.compose(
-  [
-    FormBuilderValidators.numeric(),
-  ],
-);
-
-class FormAttribute {
-  FormAttribute({
-    required this.name,
-    required String label,
-    this.inputType,
-    this.validator,
-    this.isRequired = false,
-  }) : label = isRequired ? '$label *' : label;
-  String name;
-  String label;
-  TextInputType? inputType;
-  String? Function(String?)? validator;
-  bool isRequired;
-}
-
-List<FormAttribute> getAttributesForSeller() {
+List<TextFieldAttribute> getAttributesForSeller() {
   return [
-    FormAttribute(
+    TextFieldAttribute(
       name: 'name',
       label: 'Organization Name',
       validator: requiredValidator,
       isRequired: true,
     ),
-    FormAttribute(
+    TextFieldAttribute(
       name: 'contact',
       label: 'Organization Contact',
       validator: requiredValidator,
       isRequired: true,
     ),
-    FormAttribute(
+    TextFieldAttribute(
       name: 'email',
       label: 'Email',
       validator: emailValidator,
       isRequired: true,
     ),
-    FormAttribute(name: 'streetAddress1', label: 'Street Address 1'),
-    FormAttribute(name: 'streetAddress2', label: 'Street Address 2'),
-    FormAttribute(name: 'city', label: 'City'),
-    FormAttribute(
+    TextFieldAttribute(name: 'streetAddress1', label: 'Street Address 1'),
+    TextFieldAttribute(name: 'streetAddress2', label: 'Street Address 2'),
+    TextFieldAttribute(name: 'city', label: 'City'),
+    TextFieldAttribute(
       name: 'pincode',
       label: 'Pincode',
       validator: numericValidator,
     ),
-    FormAttribute(name: 'district', label: 'District'),
-    FormAttribute(name: 'state', label: 'State'),
-    FormAttribute(name: 'country', label: 'Country'),
+    TextFieldAttribute(name: 'district', label: 'District'),
+    TextFieldAttribute(name: 'state', label: 'State'),
+    TextFieldAttribute(name: 'country', label: 'Country'),
   ];
 }
 
-List<FormAttribute> getAttributesForPrimaryUser() {
+List<TextFieldAttribute> getAttributesForPrimaryUser() {
   return [
-    FormAttribute(
+    TextFieldAttribute(
       name: 'firstName',
       label: 'First Name',
       validator: requiredValidator,
       isRequired: true,
     ),
-    FormAttribute(
+    TextFieldAttribute(
       name: 'lastName',
       label: 'Last Name',
       validator: requiredValidator,
       isRequired: true,
     ),
-    FormAttribute(name: 'gender', label: 'Gender'),
-    FormAttribute(
+    TextFieldAttribute(name: 'gender', label: 'Gender'),
+    TextFieldAttribute(
       name: 'dateOfBirth',
       label: 'Date Of Birth',
       validator: dateValidator,
     ),
-    FormAttribute(name: 'primaryContact', label: 'Primary Contact'),
-    FormAttribute(name: 'secondaryContact', label: 'Secondary Contact'),
-    FormAttribute(
+    TextFieldAttribute(name: 'primaryContact', label: 'Primary Contact'),
+    TextFieldAttribute(name: 'secondaryContact', label: 'Secondary Contact'),
+    TextFieldAttribute(
       name: 'email',
       label: 'Email',
       validator: emailValidator,
       isRequired: true,
     ),
-    FormAttribute(
+    TextFieldAttribute(
       name: 'password',
       label: 'Password',
       validator: requiredValidator,
       isRequired: true,
     ),
-    FormAttribute(name: 'streetAddress1', label: 'Street Address 1'),
-    FormAttribute(name: 'streetAddress2', label: 'Street Address 2'),
-    FormAttribute(name: 'city', label: 'City'),
-    FormAttribute(
+    TextFieldAttribute(name: 'streetAddress1', label: 'Street Address 1'),
+    TextFieldAttribute(name: 'streetAddress2', label: 'Street Address 2'),
+    TextFieldAttribute(name: 'city', label: 'City'),
+    TextFieldAttribute(
       name: 'pincode',
       label: 'Pincode',
       validator: numericValidator,
     ),
-    FormAttribute(name: 'district', label: 'District'),
-    FormAttribute(name: 'state', label: 'State'),
-    FormAttribute(name: 'country', label: 'Country'),
+    TextFieldAttribute(name: 'district', label: 'District'),
+    TextFieldAttribute(name: 'state', label: 'State'),
+    TextFieldAttribute(name: 'country', label: 'Country'),
   ];
 }
 
@@ -185,25 +146,6 @@ class RegisterGate extends StatelessWidget with GetItMixin {
       }
     }
     return null;
-  }
-
-  Address getAddress(Map<String, dynamic>? fields) {
-    String? streetAddress1 = fields?['streetAddress1'].value;
-    String? streetAddress2 = fields?['streetAddress2'].value;
-    String? city = fields?['city'].value;
-    int? pincode = int.tryParse(fields?['pincode'].value ?? '');
-    String? district = fields?['district'].value;
-    String? state = fields?['state'].value;
-    String? country = fields?['country'].value;
-    return Address(
-      city ?? '',
-      pincode ?? -1,
-      district ?? '',
-      state ?? '',
-      country ?? '',
-      streetAddress1: streetAddress1,
-      streetAddress2: streetAddress2,
-    );
   }
 
   @override

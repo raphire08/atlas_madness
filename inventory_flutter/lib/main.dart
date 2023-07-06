@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:inventory_flutter/manager/auth_manager.dart';
+import 'package:inventory_flutter/manager/home_manager.dart';
 import 'package:inventory_flutter/screens/home_screen.dart';
 import 'package:inventory_flutter/screens/login_screen.dart';
 import 'package:inventory_flutter/screens/register_screen.dart';
 import 'package:realm/realm.dart';
 
+import 'manager/store_manager.dart';
 import 'manager/user_manager.dart';
 import 'models/auth_model.dart';
 
@@ -23,6 +25,8 @@ void registerManager() {
   getIt.registerSingleton(App(AppConfiguration('application-0-knrzx')));
   getIt.registerSingleton<AuthManager>(AuthManager());
   getIt.registerLazySingleton<UserManager>(() => UserManager());
+  getIt.registerLazySingleton<StoreManager>(() => StoreManager());
+  getIt.registerLazySingleton<HomeManager>(() => HomeManager());
 }
 
 final _router = GoRouter(
