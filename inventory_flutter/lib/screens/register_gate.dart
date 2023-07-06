@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:get_it_mixin/get_it_mixin.dart';
@@ -152,7 +154,7 @@ class RegisterGate extends StatelessWidget with GetItMixin {
   Widget build(BuildContext context) {
     final isLoading = watchX((AuthManager x) => x.registerCommand.isExecuting);
     final error = watchX((AuthManager x) => x.registerCommand.errors);
-    print(error);
+    log(error.toString());
     registerHandler((AuthManager x) => x.registerCommand,
         (context, newValue, cancel) async {
       if (newValue) {

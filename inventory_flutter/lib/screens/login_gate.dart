@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it_mixin/get_it_mixin.dart';
@@ -25,7 +27,7 @@ class LoginGate extends StatelessWidget with GetItMixin {
         context.go('/home');
       }
     });
-    print('authenticated: ${result.isAuthenticated}');
+    log('authenticated: ${result.isAuthenticated}');
     final authManager = get<AuthManager>();
     return GestureDetector(
       onTap: FocusScope.of(context).unfocus,
