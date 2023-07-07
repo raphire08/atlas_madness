@@ -54,15 +54,6 @@ List<FormAttribute> getAttributesForStoreProperties() {
   ];
 }
 
-class StoreGate extends StatelessWidget {
-  const StoreGate({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
-  }
-}
-
 class AddStore extends StatelessWidget with GetItMixin {
   AddStore(this.sellerId, {Key? key}) : super(key: key);
 

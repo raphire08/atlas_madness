@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:inventory_flutter/main.dart';
 import 'package:inventory_flutter/models/barrel.dart';
 import 'package:realm/realm.dart';
@@ -35,11 +33,8 @@ class AppRepo {
     }
   }
 
-  RealmResults<Staff> getAllStaffs() {
-    final result = realm.all<Staff>();
-    log(result.length.toString());
-    log(result.map((e) => e.id).toList().toString());
-    return result;
+  List<Staff> getAllStaffs(ObjectId sellerId) {
+    return realm.query<Staff>('sellerId == \$0', [sellerId]).toList();
   }
 
   Future<bool> refreshRealm() async {
@@ -53,5 +48,10 @@ class AppRepo {
 
   List<Store> getStore(ObjectId sellerId) {
     return realm.query<Store>('sellerId == \$0', [sellerId]).toList();
+  }
+
+  Stream<List<Staff>> getStaffStream(ObjectId sellerId) {
+    final staffs = realm.query<Staff>('sellerId == \$0', [sellerId]);
+    return staffs.changes.map((event) => event.results.toList());
   }
 }

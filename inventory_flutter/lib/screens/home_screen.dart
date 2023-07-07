@@ -34,23 +34,27 @@ class _HomeScreenState extends State<HomeScreen> with GetItStateMixin {
               onTap: () {
                 homeManager.getGateCommand.execute('View Stores');
               }),
-          PlutoMenuItem(title: 'Modify Store', onTap: () {}),
           PlutoMenuItem(
               title: 'Add Store',
               onTap: () {
                 homeManager.getGateCommand.execute('Add Store');
               }),
-          PlutoMenuItem(title: 'Delete Store')
         ],
       ),
       PlutoMenuItem(
         title: 'Staff',
         onTap: () {},
         children: [
-          PlutoMenuItem(title: 'View Staff'),
-          PlutoMenuItem(title: 'Modify Staff'),
-          PlutoMenuItem(title: 'Add Staff', onTap: () {}),
-          PlutoMenuItem(title: 'Delete Staff')
+          PlutoMenuItem(
+              title: 'View Staff',
+              onTap: () {
+                homeManager.getGateCommand.execute('View Staff');
+              }),
+          PlutoMenuItem(
+              title: 'Add Staff',
+              onTap: () {
+                homeManager.getGateCommand.execute('Add Staff');
+              }),
         ],
       ),
       PlutoMenuItem(title: 'Inventory'),
