@@ -11,6 +11,7 @@ class $Data {
   late ObjectId id;
   late ObjectId sellerId;
   late ObjectId productId;
+  late ObjectId storeId;
   late DateTime createdOn;
   late DateTime modifiedOn;
   late List<$AttributeValue> values;

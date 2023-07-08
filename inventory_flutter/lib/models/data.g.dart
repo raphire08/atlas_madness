@@ -11,6 +11,7 @@ class Data extends $Data with RealmEntity, RealmObjectBase, RealmObject {
     ObjectId id,
     ObjectId sellerId,
     ObjectId productId,
+    ObjectId storeId,
     DateTime createdOn,
     DateTime modifiedOn, {
     Iterable<AttributeValue> values = const [],
@@ -18,6 +19,7 @@ class Data extends $Data with RealmEntity, RealmObjectBase, RealmObject {
     RealmObjectBase.set(this, '_id', id);
     RealmObjectBase.set(this, 'sellerId', sellerId);
     RealmObjectBase.set(this, 'productId', productId);
+    RealmObjectBase.set(this, 'storeId', storeId);
     RealmObjectBase.set(this, 'createdOn', createdOn);
     RealmObjectBase.set(this, 'modifiedOn', modifiedOn);
     RealmObjectBase.set<RealmList<AttributeValue>>(
@@ -43,6 +45,12 @@ class Data extends $Data with RealmEntity, RealmObjectBase, RealmObject {
   @override
   set productId(ObjectId value) =>
       RealmObjectBase.set(this, 'productId', value);
+
+  @override
+  ObjectId get storeId =>
+      RealmObjectBase.get<ObjectId>(this, 'storeId') as ObjectId;
+  @override
+  set storeId(ObjectId value) => RealmObjectBase.set(this, 'storeId', value);
 
   @override
   DateTime get createdOn =>
@@ -82,6 +90,7 @@ class Data extends $Data with RealmEntity, RealmObjectBase, RealmObject {
           mapTo: '_id', primaryKey: true),
       SchemaProperty('sellerId', RealmPropertyType.objectid),
       SchemaProperty('productId', RealmPropertyType.objectid),
+      SchemaProperty('storeId', RealmPropertyType.objectid),
       SchemaProperty('createdOn', RealmPropertyType.timestamp),
       SchemaProperty('modifiedOn', RealmPropertyType.timestamp),
       SchemaProperty('values', RealmPropertyType.object,

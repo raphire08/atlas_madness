@@ -237,6 +237,7 @@ class _AddStaffState extends State<AddStaff> with GetItStateMixin {
                           items: stores
                               .map<DropdownMenuItem<String>>(
                                 (Store e) => DropdownMenuItem(
+                                  value: e.name,
                                   child: Text(e.name),
                                 ),
                               )

@@ -12,9 +12,9 @@ class OptionSet extends $OptionSet
     ObjectId id,
     ObjectId sellerId,
     String name,
-    int parentSetId,
     bool active, {
-    Iterable<Option> address = const [],
+    int? parentSetId,
+    Iterable<Option> options = const [],
   }) {
     RealmObjectBase.set(this, '_id', id);
     RealmObjectBase.set(this, 'sellerId', sellerId);
@@ -22,7 +22,7 @@ class OptionSet extends $OptionSet
     RealmObjectBase.set(this, 'parentSetId', parentSetId);
     RealmObjectBase.set(this, 'active', active);
     RealmObjectBase.set<RealmList<Option>>(
-        this, 'address', RealmList<Option>(address));
+        this, 'options', RealmList<Option>(options));
   }
 
   OptionSet._();
@@ -44,9 +44,10 @@ class OptionSet extends $OptionSet
   set name(String value) => RealmObjectBase.set(this, 'name', value);
 
   @override
-  int get parentSetId => RealmObjectBase.get<int>(this, 'parentSetId') as int;
+  int? get parentSetId => RealmObjectBase.get<int>(this, 'parentSetId') as int?;
   @override
-  set parentSetId(int value) => RealmObjectBase.set(this, 'parentSetId', value);
+  set parentSetId(int? value) =>
+      RealmObjectBase.set(this, 'parentSetId', value);
 
   @override
   bool get active => RealmObjectBase.get<bool>(this, 'active') as bool;
@@ -54,10 +55,10 @@ class OptionSet extends $OptionSet
   set active(bool value) => RealmObjectBase.set(this, 'active', value);
 
   @override
-  RealmList<Option> get address =>
-      RealmObjectBase.get<Option>(this, 'address') as RealmList<Option>;
+  RealmList<Option> get options =>
+      RealmObjectBase.get<Option>(this, 'options') as RealmList<Option>;
   @override
-  set address(covariant RealmList<Option> value) =>
+  set options(covariant RealmList<Option> value) =>
       throw RealmUnsupportedSetError();
 
   @override
@@ -75,10 +76,11 @@ class OptionSet extends $OptionSet
       SchemaProperty('id', RealmPropertyType.objectid,
           mapTo: '_id', primaryKey: true),
       SchemaProperty('sellerId', RealmPropertyType.objectid),
-      SchemaProperty('name', RealmPropertyType.string),
-      SchemaProperty('parentSetId', RealmPropertyType.int),
+      SchemaProperty('name', RealmPropertyType.string,
+          indexType: RealmIndexType.fullText),
+      SchemaProperty('parentSetId', RealmPropertyType.int, optional: true),
       SchemaProperty('active', RealmPropertyType.bool),
-      SchemaProperty('address', RealmPropertyType.object,
+      SchemaProperty('options', RealmPropertyType.object,
           linkTarget: 'Option', collectionType: RealmCollectionType.list),
     ]);
   }

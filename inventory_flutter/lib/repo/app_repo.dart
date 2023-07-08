@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:inventory_flutter/main.dart';
 import 'package:inventory_flutter/models/barrel.dart';
 import 'package:realm/realm.dart';
@@ -38,7 +40,12 @@ class AppRepo {
   }
 
   Future<bool> refreshRealm() async {
-    return await realm.refreshAsync();
+    try {
+      return await realm.refreshAsync();
+    } catch (e) {
+      log('error while refreshing realm, $e');
+      throw Exception();
+    }
   }
 
   Stream<List<Store>> getStoreStream(ObjectId sellerId) {
@@ -53,5 +60,15 @@ class AppRepo {
   Stream<List<Staff>> getStaffStream(ObjectId sellerId) {
     final staffs = realm.query<Staff>('sellerId == \$0', [sellerId]);
     return staffs.changes.map((event) => event.results.toList());
+  }
+
+  List<OptionSet> searchOptionSet(ObjectId sellerId, String text) {
+    try {
+      return realm.query<OptionSet>("sellerId == \$0 && name TEXT \$1 LIMIT(5)",
+          [sellerId, text]).toList();
+    } catch (e) {
+      log('error while searching option set, $e');
+      throw Exception();
+    }
   }
 }

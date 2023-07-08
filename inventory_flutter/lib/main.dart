@@ -9,6 +9,8 @@ import 'package:inventory_flutter/screens/login_screen.dart';
 import 'package:inventory_flutter/screens/register_screen.dart';
 import 'package:realm/realm.dart';
 
+import 'manager/option_manager.dart';
+import 'manager/staff_manager.dart';
 import 'manager/store_manager.dart';
 import 'manager/user_manager.dart';
 import 'models/auth_model.dart';
@@ -27,6 +29,8 @@ void registerManager() {
   getIt.registerLazySingleton<UserManager>(() => UserManager());
   getIt.registerLazySingleton<StoreManager>(() => StoreManager());
   getIt.registerLazySingleton<HomeManager>(() => HomeManager());
+  getIt.registerLazySingleton<StaffManager>(() => StaffManager());
+  getIt.registerLazySingleton<OptionManager>(() => OptionManager());
 }
 
 final _router = GoRouter(

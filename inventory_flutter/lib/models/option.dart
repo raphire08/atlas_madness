@@ -9,5 +9,5 @@ class $Option {
   late int value;
   late int sortOrder;
   late bool active;
-  late ObjectId parentOptionId;
+  late ObjectId? parentOptionId;
 }

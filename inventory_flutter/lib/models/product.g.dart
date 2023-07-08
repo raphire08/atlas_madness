@@ -13,7 +13,8 @@ class Product extends $Product with RealmEntity, RealmObjectBase, RealmObject {
     String name,
     String type,
     String subType,
-    String subSubType, {
+    String subSubType,
+    String sku, {
     Iterable<ObjectId> templateIds = const [],
   }) {
     RealmObjectBase.set(this, '_id', id);
@@ -22,6 +23,7 @@ class Product extends $Product with RealmEntity, RealmObjectBase, RealmObject {
     RealmObjectBase.set(this, 'type', type);
     RealmObjectBase.set(this, 'subType', subType);
     RealmObjectBase.set(this, 'subSubType', subSubType);
+    RealmObjectBase.set(this, 'sku', sku);
     RealmObjectBase.set<RealmList<ObjectId>>(
         this, 'templateIds', RealmList<ObjectId>(templateIds));
   }
@@ -62,6 +64,11 @@ class Product extends $Product with RealmEntity, RealmObjectBase, RealmObject {
       RealmObjectBase.set(this, 'subSubType', value);
 
   @override
+  String get sku => RealmObjectBase.get<String>(this, 'sku') as String;
+  @override
+  set sku(String value) => RealmObjectBase.set(this, 'sku', value);
+
+  @override
   RealmList<ObjectId> get templateIds =>
       RealmObjectBase.get<ObjectId>(this, 'templateIds') as RealmList<ObjectId>;
   @override
@@ -87,6 +94,7 @@ class Product extends $Product with RealmEntity, RealmObjectBase, RealmObject {
       SchemaProperty('type', RealmPropertyType.string),
       SchemaProperty('subType', RealmPropertyType.string),
       SchemaProperty('subSubType', RealmPropertyType.string),
+      SchemaProperty('sku', RealmPropertyType.string),
       SchemaProperty('templateIds', RealmPropertyType.objectid,
           collectionType: RealmCollectionType.list),
     ]);

@@ -33,21 +33,28 @@ enum AttributeType {
 }
 
 abstract class FormAttribute {
-  FormAttribute({required this.attributeType});
+  FormAttribute({
+    required this.attributeType,
+    required this.name,
+    required this.label,
+  });
   AttributeType attributeType;
+  String name;
+  String label;
 }
 
 class TextFieldAttribute extends FormAttribute {
   TextFieldAttribute({
-    required this.name,
+    required String name,
     required String label,
     this.inputType,
     this.validator,
     this.isRequired = false,
-    super.attributeType = AttributeType.textField,
-  }) : label = isRequired ? '$label *' : label;
-  String name;
-  String label;
+  }) : super(
+          attributeType: AttributeType.textField,
+          name: name,
+          label: label = isRequired ? '$label *' : label,
+        );
   TextInputType? inputType;
   String? Function(String?)? validator;
   bool isRequired;
@@ -55,13 +62,13 @@ class TextFieldAttribute extends FormAttribute {
 
 class BooleanAttribute extends FormAttribute {
   BooleanAttribute({
-    required this.name,
-    required this.label,
-    super.attributeType = AttributeType.bool,
-  });
-
-  String name;
-  String label;
+    required String name,
+    required String label,
+  }) : super(
+          attributeType: AttributeType.textField,
+          name: name,
+          label: label,
+        );
 }
 
 Address getAddress(Map<String, dynamic>? fields) {

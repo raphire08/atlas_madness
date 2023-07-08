@@ -10,8 +10,9 @@ class $OptionSet {
   @MapTo('_id')
   late ObjectId id;
   late ObjectId sellerId;
+  @Indexed(RealmIndexType.fullText)
   late String name;
-  late int parentSetId;
+  late int? parentSetId;
   late bool active;
-  late List<$Option> address;
+  late List<$Option> options;
 }

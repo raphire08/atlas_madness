@@ -72,17 +72,32 @@ class AuthRepo {
   }
 
   Realm configureRealm(User user) {
-    final config = Configuration.flexibleSync(user, schemas,
-        clientResetHandler: const DiscardUnsyncedChangesHandler());
+    final config = Configuration.flexibleSync(
+      user,
+      schemas,
+      clientResetHandler: const DiscardUnsyncedChangesHandler(),
+    );
     Realm realm = Realm(config);
     log('configured synced realm');
     realm.subscriptions.update((mutableSubscriptions) {
       final staffQuery = realm.all<Staff>();
       final storeQuery = realm.all<Store>();
       final sellerQuery = realm.all<Seller>();
+      final optionSetQuery = realm.all<OptionSet>();
+      final templateQuery = realm.all<ProductTemplate>();
+      final productQuery = realm.all<Product>();
+      final dataQuery = realm.all<Data>();
+      final attributeQuery = realm.all<Attribute>();
       mutableSubscriptions.add(staffQuery, name: "staff", update: true);
       mutableSubscriptions.add(storeQuery, name: "store", update: true);
       mutableSubscriptions.add(sellerQuery, name: "seller", update: true);
+      mutableSubscriptions.add(optionSetQuery,
+          name: "option_set", update: true);
+      mutableSubscriptions.add(templateQuery,
+          name: "product_template", update: true);
+      mutableSubscriptions.add(productQuery, name: "product", update: true);
+      mutableSubscriptions.add(attributeQuery, name: "attribute", update: true);
+      mutableSubscriptions.add(dataQuery, name: "data", update: true);
     });
     registerRealm(realm);
     return realm;

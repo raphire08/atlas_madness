@@ -12,5 +12,6 @@ class $Product {
   late String type;
   late String subType;
   late String subSubType;
+  late String sku;
   late List<ObjectId> templateIds;
 }
