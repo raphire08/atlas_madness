@@ -71,4 +71,14 @@ class AppRepo {
       throw Exception();
     }
   }
+
+  void addOptionInSet(OptionSet set, Option option) {
+    realm.write(() {
+      set.options.add(option);
+    });
+  }
+
+  OptionSet? getOptionSet(ObjectId id) {
+    return realm.find<OptionSet>(id);
+  }
 }

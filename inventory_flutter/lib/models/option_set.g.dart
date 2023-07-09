@@ -13,7 +13,7 @@ class OptionSet extends $OptionSet
     ObjectId sellerId,
     String name,
     bool active, {
-    int? parentSetId,
+    ObjectId? parentSetId,
     Iterable<Option> options = const [],
   }) {
     RealmObjectBase.set(this, '_id', id);
@@ -44,9 +44,10 @@ class OptionSet extends $OptionSet
   set name(String value) => RealmObjectBase.set(this, 'name', value);
 
   @override
-  int? get parentSetId => RealmObjectBase.get<int>(this, 'parentSetId') as int?;
+  ObjectId? get parentSetId =>
+      RealmObjectBase.get<ObjectId>(this, 'parentSetId') as ObjectId?;
   @override
-  set parentSetId(int? value) =>
+  set parentSetId(ObjectId? value) =>
       RealmObjectBase.set(this, 'parentSetId', value);
 
   @override
@@ -78,7 +79,7 @@ class OptionSet extends $OptionSet
       SchemaProperty('sellerId', RealmPropertyType.objectid),
       SchemaProperty('name', RealmPropertyType.string,
           indexType: RealmIndexType.fullText),
-      SchemaProperty('parentSetId', RealmPropertyType.int, optional: true),
+      SchemaProperty('parentSetId', RealmPropertyType.objectid, optional: true),
       SchemaProperty('active', RealmPropertyType.bool),
       SchemaProperty('options', RealmPropertyType.object,
           linkTarget: 'Option', collectionType: RealmCollectionType.list),

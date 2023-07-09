@@ -14,6 +14,7 @@ class OptionManager {
   late Command<bool, bool> setExecutionCommand;
   late Command<String, List<OptionSet>> searchOptionSetCommand;
   late Command<List<Option>, PlutoGrid> viewOptionCommand;
+  late Command<(OptionSet, Option), bool> addOptionCommand;
 
   ObjectId? sellerId;
 
@@ -39,6 +40,9 @@ class OptionManager {
 
     viewOptionCommand = Command.createSync(getOptionGrid,
         initialValue: const PlutoGrid(columns: [], rows: []));
+
+    addOptionCommand =
+        Command.createSync(addOptionInOptionSet, initialValue: false);
   }
 
   void textChangeListener(String filterText, _) {
@@ -121,6 +125,19 @@ class OptionManager {
       return PlutoColumnType.date();
     } else {
       return PlutoColumnType.text();
+    }
+  }
+
+  bool addOptionInOptionSet((OptionSet, Option) set) {
+    final (optionSet, option) = set;
+    repo.addOptionInSet(optionSet, option);
+    return true;
+  }
+
+  void refreshOptionPage(ObjectId objectId) {
+    final set = repo.getOptionSet(objectId);
+    if (set != null) {
+      viewOptionCommand.execute(set.options);
     }
   }
 }

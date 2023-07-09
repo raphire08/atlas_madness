@@ -12,9 +12,9 @@ class Option extends $Option with RealmEntity, RealmObjectBase, EmbeddedObject {
     String name,
     int value,
     int sortOrder,
-    bool active,
-    ObjectId parentOptionId,
-  ) {
+    bool active, {
+    ObjectId? parentOptionId,
+  }) {
     RealmObjectBase.set(this, 'id', id);
     RealmObjectBase.set(this, 'name', name);
     RealmObjectBase.set(this, 'value', value);
@@ -51,10 +51,10 @@ class Option extends $Option with RealmEntity, RealmObjectBase, EmbeddedObject {
   set active(bool value) => RealmObjectBase.set(this, 'active', value);
 
   @override
-  ObjectId get parentOptionId =>
-      RealmObjectBase.get<ObjectId>(this, 'parentOptionId') as ObjectId;
+  ObjectId? get parentOptionId =>
+      RealmObjectBase.get<ObjectId>(this, 'parentOptionId') as ObjectId?;
   @override
-  set parentOptionId(ObjectId value) =>
+  set parentOptionId(ObjectId? value) =>
       RealmObjectBase.set(this, 'parentOptionId', value);
 
   @override
@@ -74,7 +74,8 @@ class Option extends $Option with RealmEntity, RealmObjectBase, EmbeddedObject {
       SchemaProperty('value', RealmPropertyType.int),
       SchemaProperty('sortOrder', RealmPropertyType.int),
       SchemaProperty('active', RealmPropertyType.bool),
-      SchemaProperty('parentOptionId', RealmPropertyType.objectid),
+      SchemaProperty('parentOptionId', RealmPropertyType.objectid,
+          optional: true),
     ]);
   }
 }

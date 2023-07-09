@@ -12,7 +12,7 @@ class $OptionSet {
   late ObjectId sellerId;
   @Indexed(RealmIndexType.fullText)
   late String name;
-  late int? parentSetId;
+  late ObjectId? parentSetId;
   late bool active;
   late List<$Option> options;
 }

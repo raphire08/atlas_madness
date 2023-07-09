@@ -165,14 +165,29 @@ class _ViewOptionState extends State<ViewOption> with GetItStateMixin {
     showDialog(
       context: context,
       builder: (context) {
-        return const Material(
-          child: SizedBox(
-            width: 500,
-            child: ModifyOption(),
-          ),
-        );
+        return selectedSet != null
+            ? Material(
+                child: SizedBox(
+                  width: 500,
+                  child: ModifyOption(selectedSet!),
+                ),
+              )
+            : AlertDialog(
+                title: const Text('No option set selected'),
+                actions: [
+                  TextButton(
+                      onPressed: () {
+                        context.pop();
+                      },
+                      child: const Text('Okay'))
+                ],
+              );
       },
-    );
+    ).then((value) {
+      if (selectedSet != null) {
+        optionManager.refreshOptionPage(selectedSet!.id);
+      }
+    });
   }
 
   @override
@@ -191,12 +206,13 @@ class _ViewOptionState extends State<ViewOption> with GetItStateMixin {
         (OptionManager manager) => manager.searchOptionSetCommand.isExecuting);
     PlutoGrid grid =
         watchX((OptionManager manager) => manager.viewOptionCommand);
-    return Column(
-      children: [
-        Align(
-          alignment: Alignment.centerLeft,
-          child: Padding(
-            padding: const EdgeInsets.all(20),
+    return Padding(
+      padding: const EdgeInsets.all(20),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Align(
+            alignment: Alignment.centerLeft,
             child: SizedBox(
               width: 300,
               child: Column(
@@ -262,37 +278,60 @@ class _ViewOptionState extends State<ViewOption> with GetItStateMixin {
               ),
             ),
           ),
-        ),
-        if (selectedSet != null)
-          grid.columns.isNotEmpty
-              ? Column(
-                  children: [
-                    Text(
-                      'Options',
-                      style: Theme.of(context).textTheme.headlineLarge,
+          if (selectedSet != null)
+            grid.columns.isNotEmpty
+                ? Flexible(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Container(
+                          color: Theme.of(context).primaryColor,
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          child: Row(
+                            children: [
+                              Text(
+                                'Options',
+                                style:
+                                    Theme.of(context).textTheme.headlineLarge,
+                              ),
+                              const SizedBox(width: 40),
+                              ElevatedButton(
+                                onPressed: () {
+                                  onAddButtonPress(context);
+                                  setState(() {});
+                                },
+                                child: const Text('Add option'),
+                              )
+                            ],
+                          ),
+                        ),
+                        Expanded(child: grid),
+                      ],
                     ),
-                    grid,
-                  ],
-                )
-              : Column(
-                  children: [
-                    const Text('No options exist'),
-                    const SizedBox(height: 10),
-                    TextButton(
-                      onPressed: () {
-                        onAddButtonPress(context);
-                      },
-                      child: const Text('Add Option'),
-                    ),
-                  ],
-                )
-      ],
+                  )
+                : Column(
+                    children: [
+                      const Text('No options exist'),
+                      const SizedBox(height: 10),
+                      TextButton(
+                        onPressed: () {
+                          onAddButtonPress(context);
+                          setState(() {});
+                        },
+                        child: const Text('Add Option'),
+                      ),
+                    ],
+                  )
+        ],
+      ),
     );
   }
 }
 
-class ModifyOption extends StatelessWidget {
-  ModifyOption({Key? key}) : super(key: key);
+class ModifyOption extends StatelessWidget with GetItMixin {
+  ModifyOption(this.optionSet, {Key? key}) : super(key: key);
+
+  final OptionSet optionSet;
 
   final GlobalKey<FormBuilderState> formKeyOption =
       GlobalKey<FormBuilderState>();
@@ -303,7 +342,7 @@ class ModifyOption extends StatelessWidget {
     if (validated ?? false) {
       Map<String, dynamic>? fields = formKeyOption.currentState?.fields;
       String? name = fields?['name'].value;
-      int sortOrder = fields?['sortOrder'].value ?? 0;
+      int sortOrder = int.tryParse(fields?['sortOrder'].value) ?? 0;
       bool isActive = fields?['isActive'].value ?? true;
       if (name != null) {
         ObjectId objectId = ObjectId();
@@ -315,6 +354,7 @@ class ModifyOption extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    OptionManager manager = get<OptionManager>();
     return Padding(
       padding: const EdgeInsets.all(20),
       child: FormBuilder(
@@ -357,7 +397,13 @@ class ModifyOption extends StatelessWidget {
                 )
                 .toList(),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                final option = getOption();
+                if (option != null) {
+                  manager.addOptionCommand.execute((optionSet, option));
+                  context.pop();
+                }
+              },
               child: const Text('Create Option'),
             ),
           ],
