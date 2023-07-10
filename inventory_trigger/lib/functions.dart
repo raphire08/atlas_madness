@@ -32,3 +32,5 @@ Future<Response> function(Request request) async {
       )
       .then((value) => Response.ok(jsonEncode('Email Sent')));
 }
+
+//https://us-central1-atlas-madness.cloudfunctions.net/trigger
